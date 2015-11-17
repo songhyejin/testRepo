@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC 
+		"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+		"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!-- Definitions for Tiles documentation -->
+
+
+<!-- 이거 예시파일임 수정 안함 -->
+
+
+<tiles-definitions>
+	<definition name="template" template="/WEB-INF/view/layout/template.jsp">
+		<put-attribute name="menu" value="/WEB-INF/view/layout/menu.jsp"/>
+	</definition>
+	<definition name="*.tiles" extends="template">
+		<put-attribute name="body" value="/WEB-INF/view/{1}.jsp"/>
+	</definition>
+	<definition name="*/*.tiles" extends="template">
+		<put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp"/>
+	</definition>
+</tiles-definitions>

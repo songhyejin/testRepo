@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- DB설정이니 건들지마시오////////////////////////////////////// -->
+	
+	<!-- 패키지 스캔 -->
+	<context:component-scan base-package="kr.pe.tippingpoint.dao, kr.pe.tippingpoint.service, kr.pe.tippingpoint.controller"/>
+	
+	<!-- SqlsessionTemplate 설정 -->
+	<bean name="SqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
+		c:sqlSessionFactory-ref="SqlSessionFactoryBean" />
+	<!-- sqlsessionFactroybean 설정 -->
+	<bean name="SqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean"
+				p:configLocation="classpath:/kr/pe/tippingpoint/mybatis/mybatis-config.xml"
+				p:dataSource-ref="BasicDataSource"/>
+	<!-- basic data source BEAN 객체 -->
+	<bean name="BasicDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE" />
+		<property name="username" value="tippingpoint" />
+		<property name="password" value="1592" />
+		<property name="maxTotal" value="50" />
+	</bean>
+
+	
+
+	
+	
+	<!-- ///////////////////////////////////////////////////// -->
+
+
+	<!-- multipartResolver를 bean으로 등록 - 역할 : 요청방식post이고 encype이 multipart/form-data 
+		인 경우 업로드 된 파일 관련 처리를 해주는 bean - 호출 시점 : handler 호출 하기 전에 먼저 호출이 된다. - bean으로 
+		등록 시 빈 식별자(id/name)은 mulitipartResolver로 한다. -->
+	<context:component-scan base-package="spring.fileup.controller"></context:component-scan>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<!-- View Resolver 등록 -여러개 등록이 가능 -setOrder(int order)에 호출 순서를 정한다. -InterResourcViewResolver는 
+		항상 마지막 order값을 가져야 한다. - -등록하지 않으면 InternalResourceViewResolver가 기본 ViewResolver로 
+		등록됨 -->
+	<!-- BeanNameViewResover : Handler(controller 메소드)가 리턴한 view name과 view의 
+		bean 식별값(id/name) 을 연결해서 view를 찾는 viewResolver -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="1" />
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
+		p:order="2"/>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:order="3" />
+	<!-- 원래 디폴트 값이지만 viewResolver를 하나라도 등록하면 bean으로 등록해주어야 사용가능하다. -->
+
+	<!-- Tiles 설정 -->
+	<!-- TilesConfiurer bean 등록 : tiles 설정파일의 위치 등록 -->
+	<bean name="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/config/tiles/tiles-defs.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- View Resolver 관련 설정 -->
+
+	
+
+	<!-- mvc 설정 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter"
+				c:defaultCharset="UTF-8" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<!-- 메인페이지 -->
+	<mvc:view-controller path="/index.tp" view-name="login/index.tiles" />
+	<!-- 회원가입 페이지 -->
+	<mvc:view-controller path="/tpfunder/register_form.tp" view-name="tpfunder/register_member.tiles"/>
+	<!-- 로그인 페이지 -->
+	<mvc:view-controller path="/login/login.tp" view-name="login/loginpage.tiles"/> 
+	<!-- <인터셉터 설정 -->
+
+
+</beans>
