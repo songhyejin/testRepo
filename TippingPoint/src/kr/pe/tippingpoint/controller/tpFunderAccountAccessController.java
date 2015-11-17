@@ -27,14 +27,12 @@ public class tpFunderAccountAccessController {
 			return "tpfunder/register_member.tiles";
 		}
 		*/
-		System.out.println(tpfunder.getTpfBirth());
-		
 		TpFunder tpfunder1 = new TpFunder(tpfunder.getTpfId(), tpfunder.getTpfName(), tpfunder.getTpfPassword(), 
 				tpfunder.getTpfBirth(), tpfunder.getTpfGender(), tpfunder.getTpfEmail(), tpfunder.getTpfZipcode(), 
 				tpfunder.getTpfAddress(), tpfunder.getTpfAddressD(), tpfunder.getTpfPhoneNum(), true, "f");
 		
 		service.addTpFunder(tpfunder1);
-		model.addAttribute("tpfId", tpfunder1.getTpfId());
+		model.addAttribute("tpfunder", tpfunder);
 		return "redirect:/tpfunder/registerSuccess.tp";
 	}
 	

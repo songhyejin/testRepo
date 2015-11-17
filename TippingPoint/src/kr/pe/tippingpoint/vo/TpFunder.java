@@ -119,8 +119,8 @@ public class TpFunder {
 		return tpfQualifyTpProposer;
 	}
 
-	public void setTpfQualifyTpProposer(boolean tpfQualifyTpProposer) {
-		this.tpfQualifyTpProposer = tpfQualifyTpProposer;
+	public void setTpfQualifyTpProposer(String tpfQualifyTpProposer) {
+		this.tpfQualifyTpProposer = Boolean.parseBoolean(tpfQualifyTpProposer);
 	}
 
 	public String getTpfAccountType() {

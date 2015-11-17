@@ -82,7 +82,9 @@
 	<!-- 회원가입 페이지 -->
 	<mvc:view-controller path="/tpfunder/register_form.tp" view-name="tpfunder/register_member.tiles"/>
 	<!-- 로그인 페이지 -->
-	<mvc:view-controller path="/login/login.tp" view-name="login/loginpage.tiles"/> 
+	<mvc:view-controller path="/login/login.tp" view-name="login/loginpage.tiles"/>
+	<!-- 회원가입 성공 페이지 -->
+	<mvc:view-controller path="/tpfunder/registerSuccess.tp" view-name="tpfunder/registerSuccess.tiles"/>
 	<!-- <인터셉터 설정 -->
 
 
