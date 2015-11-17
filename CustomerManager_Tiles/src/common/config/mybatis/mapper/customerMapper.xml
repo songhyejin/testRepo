@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="customerMapper">
+	<resultMap type="customer" id="customer-resultmap">
+		<id property="customerId" column="customer_id"/>
+		<result property="customerPassword" column="customer_password"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerEmail" column="customer_email"/>
+		<result property="customerMileage" column="customer_mileage"/>
+	</resultMap>
+	
+	<resultMap type="customer" id="customer-constructor-resultmap">
+		<constructor>
+			<idArg column="customer_id" javaType="string"/>
+			<arg column="customer_password" javaType="string"/>
+			<arg column="customer_name" javaType="string"/>
+			<arg column="customer_email" javaType="string"/>
+			<arg column="customer_mileage" javaType="_int"/>
+		</constructor>
+	</resultMap>
+	
+	<sql id="select-column-sql">
+		customer_id,customer_password,customer_name,customer_email,customer_mileage
+	</sql>
+	<sql id="select-sql">
+		SELECT	<include refid="select-column-sql"/>
+		FROM	customer			
+	</sql>
+	
+	<select id="selectCustomerById" parameterType="string" resultMap="customer-resultmap">
+		<include refid="select-sql"/>
+		WHERE	customer_id=#{customerId} 
+	</select>
+	<select id="selectCustomers" parameterType="string" resultMap="customer-resultmap">
+		<include refid="select-sql"/>
+		order by customer_id asc
+	</select>
+	<!-- paging -->
+	<select id="selectCustomersPaging" parameterType="hashmap" resultMap="customer-constructor-resultmap">
+		select <include refid="select-column-sql"/>
+		from (
+			select <include refid="select-column-sql"/>, ceil(rownum/#{contentsPerPage}) page
+			from(
+				select <include refid="select-column-sql"/>
+				from customer
+				order by customer_id
+			)
+		)
+		where page = #{pageNo}	
+	</select>
+	<select id="selectCountCustomers" resultType="_int">
+		select count(customer_id) from customer
+	</select>
+	<insert id="insertCustomer" parameterType="customer">
+		INSERT INTO customer (<include refid="select-column-sql"/>) 
+		VALUES (#{customerId}, #{customerPassword}, #{customerName}, #{customerEmail}, #{customerMileage})
+	</insert>
+	<delete id="deleteCustomerById" parameterType="string">
+		DELETE FROM customer WHERE customer_id=#{customerId}
+	</delete> 
+	<update id="updateCustomer" parameterType="customer">
+		UPDATE customer SET customer_password=#{customerPassword}, customer_name=#{customerName},
+							  customer_email=#{customerEmail}, customer_mileage=#{customerMileage}
+		WHERE customer_id=#{customerId}
+	</update>
+</mapper>
