@@ -22,7 +22,7 @@
          <idArg column="TPFID" javaType="string"/>
          <arg column="TPFNAME" javaType="string"/>
          <arg column="TPFPASSWORD" javaType="string"/>
-         <arg column="TPFBIRTH" javaType="int"/>
+         <arg column="TPFBIRTH" javaType="string"/>
          <arg column="TPFGENDER" javaType="string"/>
          <arg column="TPFEMAIL" javaType="string"/>
          <arg column="TPFZIPCODE" javaType="string"/>

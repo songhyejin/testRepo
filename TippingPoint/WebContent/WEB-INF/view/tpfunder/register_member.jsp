@@ -5,46 +5,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-  
-<script type="text/javascript" src="${initParam.rootPath}/script/formcheck.js"> 
-$(function() {
-	$("#regForm").on("submit", registerFormCheck);
-	$("#datepicker").datepicker({
-		changeMonth: true,
-	    changeYear: true,
-	    dateFormat : "yy-mm-dd",
-	    yearRange : "1900:c"
-	    });
-	$("#tpfId").on("keyup", function(){
-		$.ajax({
-			url:"/tpfunder/idDuplicatedCheck.tp", //요청 url
-			type:"POST",
-			data: {customerId:$("#tpfId").val()},//요청파라미터   id=aaaaa
-			dataType:"text",//응답 데이터 타입 - text(기본), json, jsonp, xml
-			beforeSend:function(){
-				//전송 전에 호출할 함수 등록
-				if($("#tpfId").val()==""){
-					alert("조회할 ID를 입력하세요");
-					return false;//false 리턴시 서버단으로 요청을 하지 않는다.
-				}
-			},
-			success:function(txt){
-				$("#layer").text(txt);
-				if(txt=='true'){//중복
-					$("#idErrorMessage").text("이미 사용중인 ID입니다.");
-					idDuplicated = true;
-				}else{
-					$("#idErrorMessage").text("사용가능한 ID입니다.");
-					idDuplicated = false;
-				}
-			}
-		});
-	});
-});
-</script>
-  
- <script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
+<script>
     function button() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -90,14 +52,14 @@ $(function() {
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <script>
 $(function() {
-	   $("#datepicker").datepicker({
+	   $("#tpfBirth").datepicker({
 	     changeMonth: true,
 	     changeYear: true,
 	     dateFormat : "yy-mm-dd",
-	     yearRange : "1900:c"
+	     yearRange : "1900:c",
+	     monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ]
 	   });
 });
 </script>
@@ -117,26 +79,26 @@ table.register {
 }
 </style>
 
-
-<div id="layer"></div>
-<spring:hasBindErrors name="tpfunder"/>
-<form action="${initParam.rootPath}/registerTpFunder.tp" method="post" id="regForm">
+<spring:hasBindErrors name="tpFunder"/>
+<form action="${initParam.rootPath}/registerTpFunder.tp" method="post">
 	<table class="register">
 		<tr>
 			<td width="100px">ID</td>
-			<td><input type="text" name="tpfId" id="tpfId" style="width:150px; height:15px;">
-			<span class="ErrorMessage" id="idErrorMessage"><form:errors path="tpfunder.tpfId"/></span>
+			<td><input type="text" name="tpfId" id="tpfId" style="width:150px; height:15px;" value="${requestScope.tpFunder.tpfId }">
+			<span class="error"><form:errors path="tpFunder.tpfId" delimiter=" | "/></span>
 			</td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" name="tpfName" id="tpfName" style="width:150px; height:15px;">
-			<span class="errorMessage"><form:errors path="tpfunder.tpfName"/></span>
+			<td><input type="text" name="tpfName" id="tpfName" style="width:150px; height:15px;" value="${requestScope.tpFunder.tpfName }">
+			<form:errors path="tpFunder.tpfName" delimiter=" | "/>
 			</td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="password" name="tpfPassword" id="tpfPassword" style="width:150px; height:15px;"></td>
+			<td><input type="password" name="tpfPassword" id="tpfPassword" style="width:150px; height:15px;">
+			<span class="error"><form:errors path="tpFunder.tpfPassword" delimiter=" | "/></span>
+			</td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인</td>
@@ -145,7 +107,7 @@ table.register {
 		<tr>
 			<td>생년월일</td>
 			<td>
-				<input type="text" id="datepicker" name="tpfBirth">
+				<input type="text" id="tpfBirth" name="tpfBirth">
 			</td>
 		</tr>
 		<tr>
@@ -157,8 +119,8 @@ table.register {
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><input type="text" name="tpfEmail" id="tpfEmail" style="width:200px; height:15px;">
-			<span class="errorMessage"><form:errors path="tpfunder.tpfEmail"/></span>
+			<td><input type="text" name="tpfEmail" id="tpfEmail" style="width:200px; height:15px;" value="${requestScope.tpFunder.tpfEmail }">
+			<form:errors path="tpFunder.tpfEmail" delimiter=" | "/>
 			</td>
 		</tr>
 		<tr>

@@ -2,7 +2,7 @@ create table TPFUNDER(
    TPFID varchar2(20) primary key,
    TPFNAME varchar2(15) not null,
    TPFPASSWORD varchar2(15) not null,
-   TPFBIRTH number(10),
+   TPFBIRTH varchar2(10),
    TPFGENDER varchar2(2),
    TPFEMAIL varchar2(30),
    TPFZIPCODE varchar2(10) not null,

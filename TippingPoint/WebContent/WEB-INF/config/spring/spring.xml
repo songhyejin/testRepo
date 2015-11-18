@@ -87,5 +87,7 @@
 	<mvc:view-controller path="/tpfunder/registerSuccess.tp" view-name="tpfunder/registerSuccess.tiles"/>
 	<!-- <인터셉터 설정 -->
 
+	<!-- 에러... -->
+	<bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" p:basename="kr.pe.tippingpoint.exception.error_message"/>
 
 </beans>

@@ -17,8 +17,21 @@ public class TpFunderValidator implements Validator {
 	@Override
 	//등록/수정 공통 체크.
 	public void validate(Object target, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tpfId", "required", new Object[]{"ID"}, "필수입력사항입니다.");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tpfPassword", "requried", new Object[]{"비밀번호"}, "필수입력사항입니다.");
+		
+		if(!supports(target.getClass())){
+			errors.reject("notsupport","우어엉");
+			return;
+		}
+		
+		TpFunder tpfunder = (TpFunder)target;
+		
+		if(tpfunder.getTpfId()==null || tpfunder.getTpfId().trim().length() < 1){
+			errors.rejectValue("tpfId", "requeired", new Object[]{"tpfId"}, "ID를 넣으세욤");
+		}if(tpfunder.getTpfPassword()==null || tpfunder.getTpfPassword().trim().isEmpty()){
+			errors.rejectValue("tpfPassword", "required", new Object[]{"tpfPassword"}, "패스워드넣으셈");
+		}
+		
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tpfName", "requried", new Object[]{"이름"}, "필수입력사항입니다.");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "tpfEmail", "requried", new Object[]{"이메일"}, "필수입력사항입니다.");
 	

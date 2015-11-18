@@ -5,7 +5,7 @@ public class TpFunder {
 	private String tpfId;
 	private String tpfName;
 	private String tpfPassword;
-	private int tpfBirth;
+	private String tpfBirth;
 	private String tpfGender;
 	private String tpfEmail;
 	private String tpfZipcode;
@@ -17,9 +17,9 @@ public class TpFunder {
 	
 	public TpFunder(){ }
 
-	public TpFunder(String tpfId, String tpfName, String tpfPassword, int tpfBirth, String tpfGender, String tpfEmail,
-			String tpfZipcode, String tpfAddress, String tpfAddressD, int tpfPhoneNum, boolean tpfQualifyTpProposer,
-			String tpfAccountType) {
+	public TpFunder(String tpfId, String tpfName, String tpfPassword, String tpfBirth, String tpfGender,
+			String tpfEmail, String tpfZipcode, String tpfAddress, String tpfAddressD, int tpfPhoneNum,
+			boolean tpfQualifyTpProposer, String tpfAccountType) {
 		super();
 		this.tpfId = tpfId;
 		this.tpfName = tpfName;
@@ -59,11 +59,11 @@ public class TpFunder {
 		this.tpfPassword = tpfPassword;
 	}
 
-	public int getTpfBirth() {
+	public String getTpfBirth() {
 		return tpfBirth;
 	}
 
-	public void setTpfBirth(int tpfBirth) {
+	public void setTpfBirth(String tpfBirth) {
 		this.tpfBirth = tpfBirth;
 	}
 
@@ -119,8 +119,8 @@ public class TpFunder {
 		return tpfQualifyTpProposer;
 	}
 
-	public void setTpfQualifyTpProposer(String tpfQualifyTpProposer) {
-		this.tpfQualifyTpProposer = Boolean.parseBoolean(tpfQualifyTpProposer);
+	public void setTpfQualifyTpProposer(boolean tpfQualifyTpProposer) {
+		this.tpfQualifyTpProposer = tpfQualifyTpProposer;
 	}
 
 	public String getTpfAccountType() {
@@ -146,7 +146,7 @@ public class TpFunder {
 		result = prime * result + ((tpfAccountType == null) ? 0 : tpfAccountType.hashCode());
 		result = prime * result + ((tpfAddress == null) ? 0 : tpfAddress.hashCode());
 		result = prime * result + ((tpfAddressD == null) ? 0 : tpfAddressD.hashCode());
-		result = prime * result + tpfBirth;
+		result = prime * result + ((tpfBirth == null) ? 0 : tpfBirth.hashCode());
 		result = prime * result + ((tpfEmail == null) ? 0 : tpfEmail.hashCode());
 		result = prime * result + ((tpfGender == null) ? 0 : tpfGender.hashCode());
 		result = prime * result + ((tpfId == null) ? 0 : tpfId.hashCode());
@@ -182,7 +182,10 @@ public class TpFunder {
 				return false;
 		} else if (!tpfAddressD.equals(other.tpfAddressD))
 			return false;
-		if (tpfBirth != other.tpfBirth)
+		if (tpfBirth == null) {
+			if (other.tpfBirth != null)
+				return false;
+		} else if (!tpfBirth.equals(other.tpfBirth))
 			return false;
 		if (tpfEmail == null) {
 			if (other.tpfEmail != null)
@@ -220,6 +223,6 @@ public class TpFunder {
 			return false;
 		return true;
 	}
-	
-	
+
+
 }
