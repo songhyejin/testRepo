@@ -2,30 +2,49 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
-<html>
-<head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
   
-<script type="text/javascript">
+<script type="text/javascript" src="${initParam.rootPath}/script/formcheck.js"> 
 $(function() {
-	   $("#datepicker").datepicker({
-	     changeMonth: true,
-	     changeYear: true,
-	     dateFormat : "yy-mm-dd",
-	     yearRange : "1900:c"
-	   });
+	$("#regForm").on("submit", registerFormCheck);
+	$("#datepicker").datepicker({
+		changeMonth: true,
+	    changeYear: true,
+	    dateFormat : "yy-mm-dd",
+	    yearRange : "1900:c"
+	    });
+	$("#tpfId").on("keyup", function(){
+		$.ajax({
+			url:"/tpfunder/idDuplicatedCheck.tp", //요청 url
+			type:"POST",
+			data: {customerId:$("#tpfId").val()},//요청파라미터   id=aaaaa
+			dataType:"text",//응답 데이터 타입 - text(기본), json, jsonp, xml
+			beforeSend:function(){
+				//전송 전에 호출할 함수 등록
+				if($("#tpfId").val()==""){
+					alert("조회할 ID를 입력하세요");
+					return false;//false 리턴시 서버단으로 요청을 하지 않는다.
+				}
+			},
+			success:function(txt){
+				$("#layer").text(txt);
+				if(txt=='true'){//중복
+					$("#idErrorMessage").text("이미 사용중인 ID입니다.");
+					idDuplicated = true;
+				}else{
+					$("#idErrorMessage").text("사용가능한 ID입니다.");
+					idDuplicated = false;
+				}
+			}
+		});
+	});
 });
 </script>
   
-  <script>
+ <script>
     function button() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -68,6 +87,21 @@ $(function() {
     }
 </script>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<script>
+$(function() {
+	   $("#datepicker").datepicker({
+	     changeMonth: true,
+	     changeYear: true,
+	     dateFormat : "yy-mm-dd",
+	     yearRange : "1900:c"
+	   });
+});
+</script>
+
 <style type="text/css">
 table{
 	width: 400px;
@@ -82,19 +116,23 @@ table.register {
     margin-right: auto;
 }
 </style>
-</head>
-<body>
-<form action="${initParam.rootPath}/registerTpFunder.tp" method="post">
+
+
+<div id="layer"></div>
+<spring:hasBindErrors name="tpfunder"/>
+<form action="${initParam.rootPath}/registerTpFunder.tp" method="post" id="regForm">
 	<table class="register">
 		<tr>
 			<td width="100px">ID</td>
 			<td><input type="text" name="tpfId" id="tpfId" style="width:150px; height:15px;">
-			<span class="errorMessage" id="idErrorMessage"><form:errors path="tpfunder.tpfId"/></span>
+			<span class="ErrorMessage" id="idErrorMessage"><form:errors path="tpfunder.tpfId"/></span>
 			</td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" name="tpfName" id="tpfName" style="width:150px; height:15px;"></td>
+			<td><input type="text" name="tpfName" id="tpfName" style="width:150px; height:15px;">
+			<span class="errorMessage"><form:errors path="tpfunder.tpfName"/></span>
+			</td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
@@ -119,7 +157,9 @@ table.register {
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><input type="text" name="tpfEmail" id="tpfEmail" style="width:200px; height:15px;"></td>
+			<td><input type="text" name="tpfEmail" id="tpfEmail" style="width:200px; height:15px;">
+			<span class="errorMessage"><form:errors path="tpfunder.tpfEmail"/></span>
+			</td>
 		</tr>
 		<tr>
 			<td>우편번호</td>
@@ -151,5 +191,3 @@ table.register {
 		</tr>
 	</table>
 </form>
-</body>
-</html>

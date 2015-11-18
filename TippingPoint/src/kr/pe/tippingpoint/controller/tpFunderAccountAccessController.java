@@ -22,11 +22,10 @@ public class tpFunderAccountAccessController {
 	@RequestMapping("registerTpFunder")
 	public String registerTpFunder(TpFunder tpfunder, Errors errors, ModelMap model) throws DuplicatedIdException{
 		new TpFunderValidator().validate(tpfunder, errors);
-		/*잠시보류
 		if(errors.hasErrors()){
-			return "tpfunder/register_member.tiles";
+			return "/tpfunder/register_form.tp";
 		}
-		*/
+
 		TpFunder tpfunder1 = new TpFunder(tpfunder.getTpfId(), tpfunder.getTpfName(), tpfunder.getTpfPassword(), 
 				tpfunder.getTpfBirth(), tpfunder.getTpfGender(), tpfunder.getTpfEmail(), tpfunder.getTpfZipcode(), 
 				tpfunder.getTpfAddress(), tpfunder.getTpfAddressD(), tpfunder.getTpfPhoneNum(), true, "f");
