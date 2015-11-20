@@ -15,11 +15,9 @@ public class TpFunder {
 	private String tpfQualifyTpProposer;
 	private String tpfAccountType;
 	
-	public TpFunder(){ }
-
-	public TpFunder(String tpfId, String tpfName, String tpfPassword, String tpfBirth, String tpfGender,
-			String tpfEmail, String tpfZipcode, String tpfAddress, String tpfAddressD, String tpfPhoneNum,
-			String tpfQualifyTpProposer, String tpfAccountType) {
+	public TpFunder(String tpfId, String tpfName, String tpfPassword, String tpfBirth, String tpfGender, String tpfEmail,
+			String tpfZipcode, String tpfAddress, String tpfAddressD, String tpfPhoneNum, String tpfQualifyTpProposer,
+			String tpfAccountType) {
 		super();
 		this.tpfId = tpfId;
 		this.tpfName = tpfName;
@@ -34,110 +32,130 @@ public class TpFunder {
 		this.tpfQualifyTpProposer = tpfQualifyTpProposer;
 		this.tpfAccountType = tpfAccountType;
 	}
+	
+	
+	public TpFunder() {}
+
 
 	public String getTpfId() {
 		return tpfId;
 	}
 
+
 	public void setTpfId(String tpfId) {
 		this.tpfId = tpfId;
 	}
+
 
 	public String getTpfName() {
 		return tpfName;
 	}
 
+
 	public void setTpfName(String tpfName) {
 		this.tpfName = tpfName;
 	}
+
 
 	public String getTpfPassword() {
 		return tpfPassword;
 	}
 
+
 	public void setTpfPassword(String tpfPassword) {
 		this.tpfPassword = tpfPassword;
 	}
+
 
 	public String getTpfBirth() {
 		return tpfBirth;
 	}
 
+
 	public void setTpfBirth(String tpfBirth) {
 		this.tpfBirth = tpfBirth;
 	}
+
 
 	public String getTpfGender() {
 		return tpfGender;
 	}
 
+
 	public void setTpfGender(String tpfGender) {
 		this.tpfGender = tpfGender;
 	}
+
 
 	public String getTpfEmail() {
 		return tpfEmail;
 	}
 
+
 	public void setTpfEmail(String tpfEmail) {
 		this.tpfEmail = tpfEmail;
 	}
+
 
 	public String getTpfZipcode() {
 		return tpfZipcode;
 	}
 
+
 	public void setTpfZipcode(String tpfZipcode) {
 		this.tpfZipcode = tpfZipcode;
 	}
+
 
 	public String getTpfAddress() {
 		return tpfAddress;
 	}
 
+
 	public void setTpfAddress(String tpfAddress) {
 		this.tpfAddress = tpfAddress;
 	}
+
 
 	public String getTpfAddressD() {
 		return tpfAddressD;
 	}
 
+
 	public void setTpfAddressD(String tpfAddressD) {
 		this.tpfAddressD = tpfAddressD;
 	}
+
 
 	public String getTpfPhoneNum() {
 		return tpfPhoneNum;
 	}
 
+
 	public void setTpfPhoneNum(String tpfPhoneNum) {
 		this.tpfPhoneNum = tpfPhoneNum;
 	}
+
 
 	public String getTpfQualifyTpProposer() {
 		return tpfQualifyTpProposer;
 	}
 
+
 	public void setTpfQualifyTpProposer(String tpfQualifyTpProposer) {
 		this.tpfQualifyTpProposer = tpfQualifyTpProposer;
 	}
+
 
 	public String getTpfAccountType() {
 		return tpfAccountType;
 	}
 
+
 	public void setTpfAccountType(String tpfAccountType) {
 		this.tpfAccountType = tpfAccountType;
 	}
 
-	@Override
-	public String toString() {
-		return "TpFunder [tpfId=" + tpfId + ", tpfName=" + tpfName + ", tpfPassword=" + tpfPassword + ", tpfBirth="
-				+ tpfBirth + ", tpfGender=" + tpfGender + ", tpfEmail=" + tpfEmail + ", tpfZipcode=" + tpfZipcode
-				+ ", tpfAddress=" + tpfAddress + ", tpfAddressD=" + tpfAddressD + ", tpfPhoneNum=" + tpfPhoneNum
-				+ ", tpfQualifyTpProposer=" + tpfQualifyTpProposer + ", tpfAccountType=" + tpfAccountType + "]";
-	}
 
 	@Override
 	public int hashCode() {
@@ -157,6 +175,7 @@ public class TpFunder {
 		result = prime * result + ((tpfZipcode == null) ? 0 : tpfZipcode.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -230,8 +249,16 @@ public class TpFunder {
 		return true;
 	}
 
+
+	@Override
+	public String toString() {
+		return "TpFunder [tpfId=" + tpfId + ", tpfName=" + tpfName + ", tpfPassword=" + tpfPassword + ", tpfBirth="
+				+ tpfBirth + ", tpfGender=" + tpfGender + ", tpfEmail=" + tpfEmail + ", tpfZipcode=" + tpfZipcode
+				+ ", tpfAddress=" + tpfAddress + ", tpfAddressD=" + tpfAddressD + ", tpfPhoneNum=" + tpfPhoneNum
+				+ ", tpfQualifyTpProposer=" + tpfQualifyTpProposer + ", tpfAccountType=" + tpfAccountType + "]";
+	}
 	
 	
-
-
+	
+	
 }

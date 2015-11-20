@@ -7,7 +7,7 @@
 
 <script>
 $(document).ready(function(){
-	$("#idcheck").on("click",function(){
+	$("#idcheck").on("click",function(){ //아이디 중복확인
 		$.ajax({
 			url:"${initParam.rootPath}/idDuplicatedCheck.tp",
 			type:"GET",
@@ -22,9 +22,9 @@ $(document).ready(function(){
 			},
 			success:function(txt){
 				if(txt==false){
-					alert("ㄱㅊ");
+					alert("가능한 아이디입니다.");
 				}else{
-					alert("ㄴㄴㄴㄴ");
+					alert("중복입니다.");
 				}
 			
 			},
@@ -38,7 +38,7 @@ $(document).ready(function(){
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
 <script>
-    function button() {
+    function button() { //주소 찾기
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -84,7 +84,7 @@ $(document).ready(function(){
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
-$(function() {
+$(function() { //생년월일 찾기
 	   $("#tpfBirth").datepicker({
 	     changeMonth: true,
 	     changeYear: true,

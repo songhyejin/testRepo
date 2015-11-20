@@ -10,7 +10,7 @@
 	<!-- DB설정이니 건들지마시오////////////////////////////////////// -->
 	
 	<!-- 패키지 스캔 -->
-	<context:component-scan base-package="kr.pe.tippingpoint.dao, kr.pe.tippingpoint.service, kr.pe.tippingpoint.controller"/>
+	<context:component-scan base-package="kr.pe.tippingpoint"/>
 	
 	<!-- SqlsessionTemplate 설정 -->
 	<bean name="SqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"
@@ -38,15 +38,10 @@
 	<!-- multipartResolver를 bean으로 등록 - 역할 : 요청방식post이고 encype이 multipart/form-data 
 		인 경우 업로드 된 파일 관련 처리를 해주는 bean - 호출 시점 : handler 호출 하기 전에 먼저 호출이 된다. - bean으로 
 		등록 시 빈 식별자(id/name)은 mulitipartResolver로 한다. -->
-	<context:component-scan base-package="spring.fileup.controller"></context:component-scan>
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
-	<!-- View Resolver 등록 -여러개 등록이 가능 -setOrder(int order)에 호출 순서를 정한다. -InterResourcViewResolver는 
-		항상 마지막 order값을 가져야 한다. - -등록하지 않으면 InternalResourceViewResolver가 기본 ViewResolver로 
-		등록됨 -->
-	<!-- BeanNameViewResover : Handler(controller 메소드)가 리턴한 view name과 view의 
-		bean 식별값(id/name) 을 연결해서 view를 찾는 viewResolver -->
+	<!-- View Resolver 관련 설정 -->
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
 		p:order="1" />
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
@@ -65,9 +60,6 @@
 			</list>
 		</property>
 	</bean>
-
-	<!-- View Resolver 관련 설정 -->
-
 	
 
 	<!-- mvc 설정 -->
@@ -82,12 +74,35 @@
 	<!-- 회원가입 페이지 -->
 	<mvc:view-controller path="/tpfunder/register_form.tp" view-name="tpfunder/register_member.tiles"/>
 	<!-- 로그인 페이지 -->
-	<mvc:view-controller path="/login/login.tp" view-name="login/loginpage.tiles"/>
+	<mvc:view-controller path="/login/login.tp" view-name="login/loginpage.tiles"/> 
+	<!-- 로그인 체크 -->
+	<mvc:view-controller path="/loginSucces.tp" view-name="classpath:"/>
+	<mvc:view-controller path="/page1.tp" view-name="login/page1.tiles"/>
+	<mvc:view-controller path="/page2.tp" view-name="login/page2.tiles"/>
+	
+	
+	<!-- 관리자 페이지  --> 
+	<mvc:view-controller path="/admin/list.tp" view-name="administrator/admin_funderList.tiles"/>
+	
+	
 	<!-- 회원가입 성공 페이지 -->
 	<mvc:view-controller path="/tpfunder/registerSuccess.tp" view-name="tpfunder/registerSuccess.tiles"/>
-	<!-- <인터셉터 설정 -->
-
 	<!-- 에러... -->
 	<bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" p:basename="kr.pe.tippingpoint.exception.error_message"/>
+	
+	
+	<!-- <인터셉터 설정 -->
+<!-- 	<mvc:interceptors>
+		<mvc:interceptor>
+		 path : ANT 패턴
+					* : 글자수 상관없이 모든 글자
+					? :	1글자
+					**: 경로에 사용. 자신을포함한 모든 하위경로
+					/**/login/**/* : 경로에 login만 들어가면 된다.
+					
+			<mvc:mapping path="/**/login/**/*"/>
+			<bean class="kr.pe.tippingpoint.interceptor.LoginCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>	 -->
 
 </beans>

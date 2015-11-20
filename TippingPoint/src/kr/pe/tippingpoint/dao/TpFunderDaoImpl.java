@@ -21,17 +21,14 @@ import kr.pe.tippingpoint.vo.TpFunder;
 @Repository
 public class TpFunderDaoImpl implements TpFunderDao {
 
-	
+	@Autowired
 	private SqlSessionTemplate session;//no-arg생성자로 객체생성후 instance변수에 바로 주입
 	
-	@Autowired
 	public TpFunderDaoImpl(SqlSessionTemplate session) {
 		this.session = session;
 	}
 	
-	public TpFunderDaoImpl(){
-		
-	}
+	public TpFunderDaoImpl() {}
 
 	@Override
 	public int insertTpFunder(TpFunder tpFunder) {
@@ -55,7 +52,7 @@ public class TpFunderDaoImpl implements TpFunderDao {
 
 	@Override
 	public List<TpFunder> selectTpFunders() {
-		return session.selectList("tpFunderMapper.selectTpFunders");
+		return session.selectList("tpFsunderMapper.selectTpFunders");
 	}
 
 	@Override
@@ -74,8 +71,9 @@ public class TpFunderDaoImpl implements TpFunderDao {
 
 	@Override
 	public int selectCountTpFunders() {
-		return 0;
+		return session.selectOne("tpFunderMapper.selectCountTpFunders");
 	}
+	
 	
 	
 }
