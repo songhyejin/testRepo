@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.pe.tippingpoint.exception.DuplicatedIdException;
-import kr.pe.tippingpoint.service.TpFunderService;
+import kr.pe.tippingpoint.service.TpFunderAccountAccessService;
 import kr.pe.tippingpoint.validator.TpFunderValidator;
 import kr.pe.tippingpoint.vo.TpFunder;
 
@@ -19,7 +19,7 @@ import kr.pe.tippingpoint.vo.TpFunder;
 public class tpFunderAccountAccessController {
 
 	@Autowired
-	private TpFunderService service;
+	private TpFunderAccountAccessService service;
 
 	@RequestMapping(value = "registerTpFunder", method = RequestMethod.POST)
 	public String registerTpFunder(@ModelAttribute TpFunder tpfunder, Errors errors, ModelMap model)

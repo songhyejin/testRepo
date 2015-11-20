@@ -8,24 +8,24 @@ import kr.pe.tippingpoint.exception.DuplicatedIdException;
 import kr.pe.tippingpoint.vo.TpFunder;
 
 @Service("TpFunderService")
-public class TpFunderServiceImpl implements TpFunderService{
+public class TpFunderAccountAccessServiceImpl implements TpFunderAccountAccessService{
 	
 	private TpFunderDao dao;
 	
 	@Autowired
-	public TpFunderServiceImpl(TpFunderDao dao){
+	public TpFunderAccountAccessServiceImpl(TpFunderDao dao){
 		this.dao = dao;
 	}
-	public TpFunderServiceImpl(){
+	public TpFunderAccountAccessServiceImpl(){
 		
 	}
 	
 	@Override
 	public void addTpFunder(TpFunder tpfunder) throws DuplicatedIdException{
 		TpFunder tpf = dao.selectTpFunderById(tpfunder.getTpfId());
-		if(tpf != null){
+		/*if(tpf != null){
 			throw new DuplicatedIdException(tpfunder.getTpfId()+"는 이미 등록된 아이디입니다.");			
-		}
+		}*/
 		dao.insertTpFunder(tpfunder);
 	}
 
