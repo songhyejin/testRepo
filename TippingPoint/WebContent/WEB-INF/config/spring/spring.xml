@@ -78,7 +78,7 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 	<!-- 메인페이지 -->
-	<mvc:view-controller path="/index.tp" view-name="login/index.tiles" />
+	<mvc:view-controller path="/index.tp" view-name="index.index" />
 	<!-- 회원가입 페이지 -->
 	<mvc:view-controller path="/tpfunder/register_form.tp" view-name="tpfunder/register_member.tiles"/>
 	<!-- 로그인 페이지 -->
