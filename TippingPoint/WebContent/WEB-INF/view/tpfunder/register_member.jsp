@@ -7,13 +7,6 @@
 
 <script>
 $(document).ready(function(){
-	$("#register").on("click",function(){
-		if(!$("#tpfId").val()){
-			alert("id를 입력하세요");
-			$("#tpfId").focus();
-			return "/tpfunder/register_form.tp";	
-		}
-	});
 	$("#idcheck").on("click",function(){
 		$.ajax({
 			url:"${initParam.rootPath}/idDuplicatedCheck.tp",

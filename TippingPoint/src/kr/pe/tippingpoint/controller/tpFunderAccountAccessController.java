@@ -25,7 +25,7 @@ public class tpFunderAccountAccessController {
 	public String registerTpFunder(@ModelAttribute TpFunder tpfunder, Errors errors, ModelMap model)
 			throws DuplicatedIdException {
 
-		tpfunder.setTpfQualifyTpProposer(true);
+		tpfunder.setTpfQualifyTpProposer("true");
 		tpfunder.setTpfAccountType("f");
 		TpFunderValidator validate = new TpFunderValidator();
 		validate.validate(tpfunder, errors); // ★

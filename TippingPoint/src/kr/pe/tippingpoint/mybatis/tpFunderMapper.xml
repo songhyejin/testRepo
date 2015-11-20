@@ -29,7 +29,7 @@
          <arg column="TPFADDRESS" javaType="string"/>
          <arg column="TPFADDRESS_D" javaType="string"/>
          <arg column="TPFPHONENUM" javaType="string"/>
-         <arg column="TPFQUALIFYTPPROPOSER" javaType="boolean"/>
+         <arg column="TPFQUALIFYTPPROPOSER" javaType="string"/>
          <arg column="TPFACCOUNTTYPE" javaType="string"/> <!-- 페북가입인지 아닌지 확인하는것 -->
       </constructor>
    </resultMap>

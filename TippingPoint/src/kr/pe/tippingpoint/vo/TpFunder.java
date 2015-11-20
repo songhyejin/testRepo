@@ -12,14 +12,14 @@ public class TpFunder {
 	private String tpfAddress;
 	private String tpfAddressD;
 	private String tpfPhoneNum;
-	private boolean tpfQualifyTpProposer;
+	private String tpfQualifyTpProposer;
 	private String tpfAccountType;
 	
 	public TpFunder(){ }
 
 	public TpFunder(String tpfId, String tpfName, String tpfPassword, String tpfBirth, String tpfGender,
 			String tpfEmail, String tpfZipcode, String tpfAddress, String tpfAddressD, String tpfPhoneNum,
-			boolean tpfQualifyTpProposer, String tpfAccountType) {
+			String tpfQualifyTpProposer, String tpfAccountType) {
 		super();
 		this.tpfId = tpfId;
 		this.tpfName = tpfName;
@@ -115,11 +115,11 @@ public class TpFunder {
 		this.tpfPhoneNum = tpfPhoneNum;
 	}
 
-	public boolean isTpfQualifyTpProposer() {
+	public String getTpfQualifyTpProposer() {
 		return tpfQualifyTpProposer;
 	}
 
-	public void setTpfQualifyTpProposer(boolean tpfQualifyTpProposer) {
+	public void setTpfQualifyTpProposer(String tpfQualifyTpProposer) {
 		this.tpfQualifyTpProposer = tpfQualifyTpProposer;
 	}
 
@@ -153,7 +153,7 @@ public class TpFunder {
 		result = prime * result + ((tpfName == null) ? 0 : tpfName.hashCode());
 		result = prime * result + ((tpfPassword == null) ? 0 : tpfPassword.hashCode());
 		result = prime * result + ((tpfPhoneNum == null) ? 0 : tpfPhoneNum.hashCode());
-		result = prime * result + (tpfQualifyTpProposer ? 1231 : 1237);
+		result = prime * result + ((tpfQualifyTpProposer == null) ? 0 : tpfQualifyTpProposer.hashCode());
 		result = prime * result + ((tpfZipcode == null) ? 0 : tpfZipcode.hashCode());
 		return result;
 	}
@@ -217,7 +217,10 @@ public class TpFunder {
 				return false;
 		} else if (!tpfPhoneNum.equals(other.tpfPhoneNum))
 			return false;
-		if (tpfQualifyTpProposer != other.tpfQualifyTpProposer)
+		if (tpfQualifyTpProposer == null) {
+			if (other.tpfQualifyTpProposer != null)
+				return false;
+		} else if (!tpfQualifyTpProposer.equals(other.tpfQualifyTpProposer))
 			return false;
 		if (tpfZipcode == null) {
 			if (other.tpfZipcode != null)
@@ -227,6 +230,7 @@ public class TpFunder {
 		return true;
 	}
 
+	
 	
 
 
