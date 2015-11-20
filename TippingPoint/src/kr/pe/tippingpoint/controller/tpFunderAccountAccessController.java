@@ -134,8 +134,7 @@ public class tpFunderAccountAccessController {
 		return "admin/tpFunder_info.tiles";
 	}
 	
-	
-	@RequestMapping("/findAllTpFunderList")
+	@RequestMapping("findAllTpFunderList")
 	public String list(@RequestParam(defaultValue="1") String pageNo, ModelMap model){
 		System.out.println("메롱121");
 		int page = 1;
@@ -144,7 +143,7 @@ public class tpFunderAccountAccessController {
 		} catch (NumberFormatException e) {}
 		Map attributes = service.getAllTpFundersPaging(page);
 		model.addAllAttributes(attributes);
-		return "tpAdmin/list.tiles";
+		return "/admin/list.tp";
 	}
 
 }

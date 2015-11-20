@@ -50,7 +50,6 @@
 		p:order="3" />
 	<!-- 원래 디폴트 값이지만 viewResolver를 하나라도 등록하면 bean으로 등록해주어야 사용가능하다. -->
 
-
 	<!-- Tiles 설정 -->
 	<!-- TilesConfiurer bean 등록 : tiles 설정파일의 위치 등록 -->
 	<bean name="tilesConfigurer"
