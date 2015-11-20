@@ -1,43 +1,29 @@
 <%@ page import="java.util.Enumeration" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script>
-$(document).ready(function(){
-	$("#idcheck").on("click",function(){
-		$.ajax({
-			url:"${initParam.rootPath}/idDuplicatedCheck.tp",
-			type:"GET",
-			data:{tpfId:$("#tpfId").val()},
-			dataType:"JSON",
-			beforeSend:function(){
-				if(!$("#tpfId").val()){
-					alert("id를 입력하세요");
-					$("#tpfId").focus();
-					return false;
-				}
-			},
-			success:function(txt){
-				if(txt==false){
-					alert("ㄱㅊ");
-				}else{
-					alert("ㄴㄴㄴㄴ");
-				}
-			
-			},
-			error: function(){
-				alert("에러");
-			}
-		});
-	});
-});
-</script>
-
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
-<script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat : "yy-mm-dd",
+      yearRange : "1900:c"
+    });
+  });
+  </script>
+  
+  <script>
     function button() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -74,30 +60,15 @@ $(document).ready(function(){
                 document.getElementById('tpfZipcode').value = data.zonecode; //5자리 새우편번호 사용
                 document.getElementById('tpfAddress').value = fullAddr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('tpfAddressD').focus();
+                document.getElementById('tpfAddreesD').focus();
             }
         }).open();
     }
 </script>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script>
-$(function() {
-	   $("#tpfBirth").datepicker({
-	     changeMonth: true,
-	     changeYear: true,
-	     dateFormat : "yy-mm-dd",
-	     yearRange : "1900:c",
-	     monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ]
-	   });
-});
-</script>
-
 <style type="text/css">
 table{
-	width: 550px;
+	width: 400px;
 }
 table, td{
 	border: 1px solid black;
@@ -109,80 +80,71 @@ table.register {
     margin-right: auto;
 }
 </style>
-
-<spring:hasBindErrors name="tpFunder"/>
-<form action="${initParam.rootPath}/registerTpFunder.tp" method="post">
+</head>
+<body>
+<form action="/TippingPoint/register_form.tp" method="post">
 	<table class="register">
 		<tr>
 			<td width="100px">ID</td>
-			<td><input type="text" name="tpfId" id="tpfId" style="width:150px; height:15px;" value="${requestScope.tpFunder.tpfId }">
-			<input type="button" value="중복확인" id="idcheck"/>
-			<span class="error"><form:errors path="tpFunder.tpfId" delimiter=" | "/></span>
-			</td>
+			<td><input type="text" name="tpfId" style="width:150px; height:15px;"></td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" name="tpfName" id="tpfName" style="width:150px; height:15px;" value="${requestScope.tpFunder.tpfName }">
-			<form:errors path="tpFunder.tpfName" delimiter=" | "/>
-			</td>
+			<td><input type="text" name="tpfName" style="width:150px; height:15px;"></td>
 		</tr>
 		<tr>
-			<td>비밀번호</td>
-			<td><input type="password" name="tpfPassword" id="tpfPassword" style="width:150px; height:15px;">
-			<span class="error"><form:errors path="tpFunder.tpfPassword" delimiter=" | "/></span>
-			</td>
-		</tr>
-		<tr>
-			<td>비밀번호 확인</td>
+			<td>패스워드</td>
 			<td><input type="password" name="tpfPassword" style="width:150px; height:15px;"></td>
 		</tr>
 		<tr>
 			<td>생년월일</td>
 			<td>
-				<input type="text" id="tpfBirth" name="tpfBirth">
+				<input type="text" id="datepicker">
 			</td>
 		</tr>
 		<tr>
 			<td>성별</td>
 			<td>
-			<label>남성 - <input type="radio" name="tpfGender" id="tpfGender" value="m"></label>
-			여성 - <input type="radio" name="tpfGender" id="tpfGender" value="f">
+			<label>남성 - <input type="radio" name="tpfGender" value="남성"></label>
+			여성 - <input type="radio" name="tpfGender" value="여성">
 			</td>
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><input type="text" name="tpfEmail" id="tpfEmail" style="width:200px; height:15px;" value="${requestScope.tpFunder.tpfEmail }">
-			<form:errors path="tpFunder.tpfEmail" delimiter=" | "/>
-			</td>
+			<td><input type="text" name="tpfEmail" style="width:200px; height:15px;"></td>
 		</tr>
 		<tr>
 			<td>우편번호</td>
-			<td><input type="text" name="tpfZipcode" id="tpfZipcode" placeholder="우편번호" style="width:50px; height:15px;"> <input type="button" onclick="button()" value="우편번호 찾기"></td>
+			<td><input type="text" id="tpfZipcode" placeholder="우편번호" style="width:50px; height:15px;"> <input type="button" onclick="button()" value="우편번호 찾기"></td>
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td><input type="text" name="tpfAddress" id="tpfAddress" placeholder="주소" style="width:200px; height:15px;"></td>
+			<td><input type="text" id="tpfAddress" placeholder="주소" style="width:200px; height:15px;"></td>
 		</tr>
 		<tr>
 			<td>상세주소</td>
-			<td><input type="text" name="tpfAddressD" id="tpfAddressD" placeholder="상세주소" style="width:200px; height:15px;"></td>
+			<td><input type="text" id="tpfAddreesD" placeholder="상세주소" style="width:200px; height:15px;"></td>
 		</tr>
 		<tr>
 			<td>휴대폰번호</td>
 			<td>
-				<select name="tpfPhoneNum">
+				<select>
 					<option>010</option>
 					<option>011</option>
+					<option>016</option>
+					<option>018</option>
+					<option>019</option>
 				</select>
 				-
-				<input type="text" name="tpfPhoneNum" id="tpfPhoneNum" style="width:50px; height:15px;">
-				<input type="text" name="tpfPhoneNum" id="tpfPhoneNum" style="width:50px; height:15px;">
+				<input type="text" name="tpfPhoneNum1" style="width:50px; height:15px;"> - <input type="text" name="tpfPhoneNum2" style="width:50px; height:15px;">
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<input type="submit" value="등록" id="register">
+				<input type="submit" value="등록">
 			</td>
 		</tr>
 	</table>
 </form>
+</body>
+</html>
