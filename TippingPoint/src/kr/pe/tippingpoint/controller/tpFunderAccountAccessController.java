@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import kr.pe.tippingpoint.exception.DuplicatedIdException;
 import kr.pe.tippingpoint.service.TpFunderService;
 import kr.pe.tippingpoint.validator.TpFunderValidator;
@@ -21,36 +20,36 @@ public class tpFunderAccountAccessController {
 
 	@Autowired
 	private TpFunderService service;
-	
-	@RequestMapping(value="registerTpFunder",method=RequestMethod.POST)
-	public String registerTpFunder(@ModelAttribute TpFunder tpfunder, Errors errors, ModelMap model) throws DuplicatedIdException{
+
+	@RequestMapping(value = "registerTpFunder", method = RequestMethod.POST)
+	public String registerTpFunder(@ModelAttribute TpFunder tpfunder, Errors errors, ModelMap model)
+			throws DuplicatedIdException {
 
 		tpfunder.setTpfQualifyTpProposer(true);
 		tpfunder.setTpfAccountType("f");
 		TpFunderValidator validate = new TpFunderValidator();
-		validate.validate(tpfunder, errors); //★
-		
-		if(errors.hasErrors()){
-			System.out.println(errors.getErrorCount());
+		validate.validate(tpfunder, errors); // ★
+
+		if (errors.hasErrors()) {
 			return "/tpfunder/register_form.tp";
 		}
-		
+
 		service.addTpFunder(tpfunder);
 		model.addAttribute("tpfunder", tpfunder);
 		return "redirect:/tpfunder/registerSuccess.tp";
 	}
-	
+
 	@RequestMapping("registerSuccess")
-	public String registerSuccess(@RequestParam String tpfId, ModelMap model){
-		model.addAttribute("tpfunder",service.findTpFunderById(tpfId));
+	public String registerSuccess(@RequestParam String tpfId, ModelMap model) {
+		model.addAttribute("tpfunder", service.findTpFunderById(tpfId));
 		return "tpfunder/registerSuccess.tiles";
 	}
-	
+
 	@RequestMapping("idDuplicatedCheck")
-	public String idDuplicatedCheck(@RequestParam String tpfId){
+	@ResponseBody
+	public String idDuplicatedCheck(@RequestParam String tpfId) {
 		TpFunder tpfunder = service.findTpFunderById(tpfId);
-		return String.valueOf(tpfunder!=null);
+		System.out.println(String.valueOf(tpfunder!=null));
+		return String.valueOf(tpfunder != null);
 	}
 }
-
-

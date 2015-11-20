@@ -11,14 +11,14 @@ public class TpFunder {
 	private String tpfZipcode;
 	private String tpfAddress;
 	private String tpfAddressD;
-	private int tpfPhoneNum;
+	private String tpfPhoneNum;
 	private boolean tpfQualifyTpProposer;
 	private String tpfAccountType;
 	
 	public TpFunder(){ }
 
 	public TpFunder(String tpfId, String tpfName, String tpfPassword, String tpfBirth, String tpfGender,
-			String tpfEmail, String tpfZipcode, String tpfAddress, String tpfAddressD, int tpfPhoneNum,
+			String tpfEmail, String tpfZipcode, String tpfAddress, String tpfAddressD, String tpfPhoneNum,
 			boolean tpfQualifyTpProposer, String tpfAccountType) {
 		super();
 		this.tpfId = tpfId;
@@ -107,11 +107,11 @@ public class TpFunder {
 		this.tpfAddressD = tpfAddressD;
 	}
 
-	public int getTpfPhoneNum() {
+	public String getTpfPhoneNum() {
 		return tpfPhoneNum;
 	}
 
-	public void setTpfPhoneNum(int tpfPhoneNum) {
+	public void setTpfPhoneNum(String tpfPhoneNum) {
 		this.tpfPhoneNum = tpfPhoneNum;
 	}
 
@@ -152,7 +152,7 @@ public class TpFunder {
 		result = prime * result + ((tpfId == null) ? 0 : tpfId.hashCode());
 		result = prime * result + ((tpfName == null) ? 0 : tpfName.hashCode());
 		result = prime * result + ((tpfPassword == null) ? 0 : tpfPassword.hashCode());
-		result = prime * result + tpfPhoneNum;
+		result = prime * result + ((tpfPhoneNum == null) ? 0 : tpfPhoneNum.hashCode());
 		result = prime * result + (tpfQualifyTpProposer ? 1231 : 1237);
 		result = prime * result + ((tpfZipcode == null) ? 0 : tpfZipcode.hashCode());
 		return result;
@@ -212,7 +212,10 @@ public class TpFunder {
 				return false;
 		} else if (!tpfPassword.equals(other.tpfPassword))
 			return false;
-		if (tpfPhoneNum != other.tpfPhoneNum)
+		if (tpfPhoneNum == null) {
+			if (other.tpfPhoneNum != null)
+				return false;
+		} else if (!tpfPhoneNum.equals(other.tpfPhoneNum))
 			return false;
 		if (tpfQualifyTpProposer != other.tpfQualifyTpProposer)
 			return false;
@@ -223,6 +226,8 @@ public class TpFunder {
 			return false;
 		return true;
 	}
+
+	
 
 
 }

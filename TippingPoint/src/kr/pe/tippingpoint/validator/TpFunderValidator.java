@@ -26,9 +26,9 @@ public class TpFunderValidator implements Validator {
 		TpFunder tpfunder = (TpFunder)target;
 		
 		if(tpfunder.getTpfId()==null || tpfunder.getTpfId().trim().length() < 1){
-			errors.rejectValue("tpfId", "requeired", new Object[]{"tpfId"}, "ID를 넣으세욤");
+			errors.rejectValue("tpfId", "requeired", new Object[]{"tpfId"}, "ID를 넣으세요");
 		}if(tpfunder.getTpfPassword()==null || tpfunder.getTpfPassword().trim().isEmpty()){
-			errors.rejectValue("tpfPassword", "required", new Object[]{"tpfPassword"}, "패스워드넣으셈");
+			errors.rejectValue("tpfPassword", "required", new Object[]{"tpfPassword"}, "패스워드를 넣으세요");
 		}
 		
 		

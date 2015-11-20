@@ -5,6 +5,44 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<script>
+$(document).ready(function(){
+	$("#register").on("click",function(){
+		if(!$("#tpfId").val()){
+			alert("id를 입력하세요");
+			$("#tpfId").focus();
+			return "/tpfunder/register_form.tp";	
+		}
+	});
+	$("#idcheck").on("click",function(){
+		$.ajax({
+			url:"${initParam.rootPath}/idDuplicatedCheck.tp",
+			type:"GET",
+			data:{tpfId:$("#tpfId").val()},
+			dataType:"JSON",
+			beforeSend:function(){
+				if(!$("#tpfId").val()){
+					alert("id를 입력하세요");
+					$("#tpfId").focus();
+					return false;
+				}
+			},
+			success:function(txt){
+				if(txt==false){
+					alert("ㄱㅊ");
+				}else{
+					alert("ㄴㄴㄴㄴ");
+				}
+			
+			},
+			error: function(){
+				alert("에러");
+			}
+		});
+	});
+});
+</script>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
 <script>
     function button() {
@@ -43,7 +81,7 @@
                 document.getElementById('tpfZipcode').value = data.zonecode; //5자리 새우편번호 사용
                 document.getElementById('tpfAddress').value = fullAddr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('tpfAddreesD').focus();
+                document.getElementById('tpfAddressD').focus();
             }
         }).open();
     }
@@ -66,7 +104,7 @@ $(function() {
 
 <style type="text/css">
 table{
-	width: 400px;
+	width: 550px;
 }
 table, td{
 	border: 1px solid black;
@@ -85,6 +123,7 @@ table.register {
 		<tr>
 			<td width="100px">ID</td>
 			<td><input type="text" name="tpfId" id="tpfId" style="width:150px; height:15px;" value="${requestScope.tpFunder.tpfId }">
+			<input type="button" value="중복확인" id="idcheck"/>
 			<span class="error"><form:errors path="tpFunder.tpfId" delimiter=" | "/></span>
 			</td>
 		</tr>
@@ -138,17 +177,18 @@ table.register {
 		<tr>
 			<td>휴대폰번호</td>
 			<td>
-				<select>
+				<select name="tpfPhoneNum">
 					<option>010</option>
 					<option>011</option>
 				</select>
 				-
-				<input type="text" name="tpfPhoneNum" id="tpfPhoneNum" style="width:100px; height:15px;">
+				<input type="text" name="tpfPhoneNum" id="tpfPhoneNum" style="width:50px; height:15px;">
+				<input type="text" name="tpfPhoneNum" id="tpfPhoneNum" style="width:50px; height:15px;">
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
-				<input type="submit" value="등록">
+				<input type="submit" value="등록" id="register">
 			</td>
 		</tr>
 	</table>

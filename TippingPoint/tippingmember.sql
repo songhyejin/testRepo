@@ -8,7 +8,7 @@ create table TPFUNDER(
    TPFZIPCODE varchar2(10) not null,
    TPFADDRESS varchar2(100) not null,
    TPFADDRESS_D varchar2(100),
-   TPFPHONENUM number(13) not null,
+   TPFPHONENUM varchar2(13) not null,
    TPFQUALIFYTPPROPOSER varchar2(5) not null,
    TPFACCOUNTTYPE varchar2(2) not null
 );
