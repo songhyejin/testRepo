@@ -1,5 +1,5 @@
 package kr.pe.tippingpoint.controller;
-
+//막내막내막내 불만쩌러
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,6 +33,7 @@ public class tpFunderAccountAccessController {
 		if (errors.hasErrors()) {
 			return "/tpfunder/register_form.tp";
 		}
+		
 
 		service.addTpFunder(tpfunder);
 		model.addAttribute("tpfunder", tpfunder);
